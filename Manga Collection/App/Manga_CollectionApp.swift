@@ -12,6 +12,7 @@ struct Manga_CollectionApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(Manga())
         }
     }
 }
