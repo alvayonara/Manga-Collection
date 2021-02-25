@@ -14,7 +14,25 @@ struct DetailMangaView: View {
     
     // MARK: - BODY
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.vertical, showsIndicators: false, content: {
+            VStack(alignment: .center, spacing: 6, content: {
+                DetailHeaderView()
+                    .padding(.horizontal, 15)
+                    .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+                    .padding(.bottom)
+                
+                TopDetailView()
+                    .multilineTextAlignment(.center)
+                    .padding()
+                
+                Text(data.mangaSelected?.attributes.synopsis ?? sampleData[0].attributes.synopsis)
+                    .font(.system(.body, design: .rounded))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            })
+            .ignoresSafeArea(.all, edges: .all)
+        })
     }
 }
 
