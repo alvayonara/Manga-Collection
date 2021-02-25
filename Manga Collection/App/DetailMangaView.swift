@@ -31,7 +31,6 @@ struct DetailMangaView: View {
                     .multilineTextAlignment(.center)
                     .padding()
             })
-            .ignoresSafeArea(.all, edges: .all)
         })
     }
 }

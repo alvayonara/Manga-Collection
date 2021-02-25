@@ -11,4 +11,5 @@ class Manga: ObservableObject {
     
     @Published var mangaDisplayed: Bool = false
     @Published var mangaSelected: Datum? = nil
+    @Published var profileDisplayed: Bool = false
 }

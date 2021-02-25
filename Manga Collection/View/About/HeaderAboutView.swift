@@ -1,35 +1,35 @@
 //
-//  HeaderView.swift
+//  HeaderAboutView.swift
 //  Manga Collection
 //
-//  Created by Alva Yonara Puramandya on 23/02/21.
+//  Created by Alva Yonara Puramandya on 25/02/21.
 //
 
 import SwiftUI
 
-struct HeaderView: View {
+struct HeaderAboutView: View {
     
+    // MARK: - PROPERTIES
     @EnvironmentObject var data: Manga
     
     // MARK: - BODY
     var body: some View {
         HStack {
-            Spacer()
-            
             Button(action: {
-                data.profileDisplayed = true
+                data.profileDisplayed = false
             }, label: {
-                Image(systemName: "slider.horizontal.3")
+                Image(systemName: "chevron.left")
                     .font(.title)
             })
+            
+            Spacer()
         }
     }
 }
 
-// MARK: - PREVIEW
-struct HeaderView_Previews: PreviewProvider {
+struct HeaderAboutView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView()
+        HeaderAboutView()
             .previewLayout(.sizeThatFits)
             .padding()
             .environmentObject(Manga())

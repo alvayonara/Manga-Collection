@@ -21,7 +21,6 @@ struct DetailHeaderView: View {
             }, label: {
                 Image(systemName: "chevron.left")
                     .font(.title)
-                    .foregroundColor(.black)
             })
             
             Spacer()

@@ -16,48 +16,52 @@ struct ContentView: View {
     // MARK: - BODY
     var body: some View {
         if data.mangaDisplayed == false && data.mangaSelected == nil {
-            ScrollView(.vertical, showsIndicators: false, content: {
-                HeaderView()
-                    .padding(.horizontal, 15)
-                    .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-                    .padding(.bottom)
-                
-                SectionView(section: "Trending Manga")
-                
-                ScrollView(.horizontal, showsIndicators: false, content: {
-                    HStack {
-                        ForEach(networkManager.dataTrendingManga) { manga in
-                            MangaRowListView(manga: manga)
+            if !data.profileDisplayed {
+                ScrollView(.vertical, showsIndicators: false, content: {
+                    HeaderView()
+                        .padding(.horizontal, 15)
+                        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+                        .padding(.bottom)
+                    
+                    SectionView(section: "Trending Manga")
+                    
+                    ScrollView(.horizontal, showsIndicators: false, content: {
+                        HStack {
+                            ForEach(networkManager.dataTrendingManga) { manga in
+                                MangaRowListView(manga: manga)
+                                    .onTapGesture {
+                                        data.mangaDisplayed = true
+                                        data.mangaSelected = manga
+                                    }
+                            }
+                        }
+                        .padding(.top, 15)
+                        .padding(.bottom, 15)
+                        .padding(.trailing, 15)
+                        .onAppear {
+                            self.networkManager.fetchDataTrendingManga()
+                        }
+                    })
+                    
+                    SectionView(section: "Explore Manga")
+                    
+                    LazyVGrid(columns: gridViewConfig, spacing: 15, content: {
+                        ForEach(networkManager.dataAllManga) { manga in
+                            MangaRowGridView(manga: manga)
                                 .onTapGesture {
                                     data.mangaDisplayed = true
                                     data.mangaSelected = manga
                                 }
                         }
-                    }
-                    .padding(.top, 15)
-                    .padding(.bottom, 15)
-                    .padding(.trailing, 15)
+                    })
+                    .padding(15)
                     .onAppear {
-                        self.networkManager.fetchDataTrendingManga()
+                        self.networkManager.fetchDataAllManga()
                     }
                 })
-                
-                SectionView(section: "Explore Manga")
-                
-                LazyVGrid(columns: gridViewConfig, spacing: 15, content: {
-                    ForEach(networkManager.dataAllManga) { manga in
-                        MangaRowGridView(manga: manga)
-                            .onTapGesture {
-                                data.mangaDisplayed = true
-                                data.mangaSelected = manga
-                            }
-                    }
-                })
-                .padding(15)
-                .onAppear {
-                    self.networkManager.fetchDataAllManga()
-                }
-            })
+            } else {
+                AboutView()
+            }
         } else {
             DetailMangaView()
         }
